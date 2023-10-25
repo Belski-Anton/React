@@ -11,6 +11,7 @@ module.exports = {
     rules: {
         'prettier/prettier': 'error',
         'react/react-in-jsx-scope': 'off',
+        '@typescript-eslint/no-explicit-any': 'error',
     },
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -26,3 +27,4 @@ module.exports = {
         },
     },
 }
+
