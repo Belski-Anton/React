@@ -12,7 +12,7 @@ header {
 }
 
 .text-flicker {
-    animation: flicker 2s infinite; /* Параметры анимации */
+    animation: flicker 2s infinite;
 }
 @keyframes flicker {
     from {
