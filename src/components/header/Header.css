@@ -6,6 +6,11 @@ header {
     margin-bottom: 15px;
 }
 
+.imgTitle {
+    object-fit: contain;
+    height: 100px;
+}
+
 .arrow {
     width: 24px;
     height: 24px;
@@ -14,10 +19,12 @@ header {
 .text-flicker {
     animation: flicker 2s infinite;
 }
+
 @keyframes flicker {
     from {
         opacity: 1;
     }
+
     to {
         opacity: 0;
     }
