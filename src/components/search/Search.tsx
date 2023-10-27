@@ -7,13 +7,14 @@ interface SearchState {
 }
 
 class Search extends React.Component<object, SearchState> {
-    constructor(props: SearchState) {
+    constructor(props: object) {
         super(props)
 
         this.state = {
             inputValue: '',
         }
     }
+
     componentDidMount() {
         const savedValue = localStorage.getItem('inputValue')
 
@@ -25,9 +26,12 @@ class Search extends React.Component<object, SearchState> {
     handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({ inputValue: e.target.value })
     }
+
     handleImgClick = () => {
         localStorage.setItem('inputValue', this.state.inputValue)
+        window.location.reload()
     }
+
     render() {
         return (
             <div className="wrapperSearch">
