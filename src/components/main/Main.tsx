@@ -31,22 +31,44 @@ class Main extends React.Component<MainProps, MainState> {
     }
 
     componentDidMount(): void {
-        fetch('https://swapi.dev/api/people/')
-            .then((res) => res.json())
-            .then(
-                (result) => {
-                    this.setState({
-                        isLoaded: true,
-                        items: result.results,
-                    })
-                },
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error,
-                    })
-                }
-            )
+        const savedValue = localStorage.getItem('inputValue')
+        console.log(savedValue)
+        window.addEventListener('storage', (event) => console.log(event))
+        if (savedValue) {
+            fetch(`https://swapi.dev/api/people/?search=${savedValue}`)
+                .then((res) => res.json())
+                .then(
+                    (result) => {
+                        this.setState({
+                            isLoaded: true,
+                            items: result.results,
+                        })
+                    },
+                    (error) => {
+                        this.setState({
+                            isLoaded: true,
+                            error,
+                        })
+                    }
+                )
+        } else {
+            fetch('https://swapi.dev/api/people/')
+                .then((res) => res.json())
+                .then(
+                    (result) => {
+                        this.setState({
+                            isLoaded: true,
+                            items: result.results,
+                        })
+                    },
+                    (error) => {
+                        this.setState({
+                            isLoaded: true,
+                            error,
+                        })
+                    }
+                )
+        }
     }
 
     render() {
