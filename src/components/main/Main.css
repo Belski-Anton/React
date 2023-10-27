@@ -1,14 +1,26 @@
+@font-face {
+    font-family: 'Starjout';
+    src: url('../../assets/fonts/Starjout.ttf');
+}
+
 .wrapperMain {
     margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
+    color: #0053ff;
 }
 
 .card {
     margin: 0 auto;
-    height: 150px;
+    height: 140px;
     width: 100%;
     border: 1px solid #f5f5f5d9;
     background-color: #f2eefb;
+}
+
+p {
+    font-family: 'Starjout';
+    margin: 0;
+    text-align: center;
 }
