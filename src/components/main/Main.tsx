@@ -77,7 +77,7 @@ class Main extends React.Component<MainProps, MainState> {
         if (error) {
             return <div>Error: {error.message}</div>
         } else if (!isLoaded) {
-            return <div>Loading...</div>
+            return <div className="load">Loading...</div>
         } else {
             return (
                 <div className="wrapperMain">
