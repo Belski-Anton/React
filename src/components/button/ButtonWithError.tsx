@@ -1,12 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './ErrorBoundary.css'
+
 interface ButtonWithErrorProps {}
 
 interface ButtonWithErrorState {
     hasError: boolean
 }
 
-class ButtonWithError extends Component<
+class ButtonWithError extends React.Component<
     ButtonWithErrorProps,
     ButtonWithErrorState
 > {
@@ -27,7 +28,7 @@ class ButtonWithError extends Component<
         }
         return (
             <button className="errorBtn" onClick={this.handleClick}>
-                cause errors
+                Cause errors
             </button>
         )
     }
