@@ -1,37 +1,22 @@
-import React from 'react'
-import './ErrorBoundary.css'
+import React, { useState } from 'react'
+import './ButtonWithError.css'
 
-interface ButtonWithErrorProps {}
+const ButtonWithError: React.FC = () => {
+    const [hasError, setHasError] = useState(false)
 
-interface ButtonWithErrorState {
-    hasError: boolean
-}
-
-class ButtonWithError extends React.Component<
-    ButtonWithErrorProps,
-    ButtonWithErrorState
-> {
-    constructor(props: ButtonWithErrorProps) {
-        super(props)
-        this.state = {
-            hasError: false,
-        }
+    const handleClick = () => {
+        setHasError(true)
     }
 
-    handleClick = () => {
-        this.setState({ hasError: true })
+    if (hasError) {
+        throw new Error('Упс! Ошибка')
     }
 
-    render() {
-        if (this.state.hasError) {
-            throw new Error('Упс! Ошибка')
-        }
-        return (
-            <button className="errorBtn" onClick={this.handleClick}>
-                Cause errors
-            </button>
-        )
-    }
+    return (
+        <button className="errorBtn" onClick={handleClick}>
+            Cause errors
+        </button>
+    )
 }
 
 export default ButtonWithError
