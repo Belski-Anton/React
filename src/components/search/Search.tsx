@@ -1,56 +1,48 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import './Search.css'
 import search from '../../assets/img/search.svg'
 
-interface SearchState {
-    inputValue: string
+interface PropsSearch {
+    onChange: (val: string) => void
 }
 
-class Search extends React.Component<object, SearchState> {
-    constructor(props: object) {
-        super(props)
+const Search = ({ onChange }: PropsSearch) => {
+    const [inputValue, setInputValue] = useState('')
 
-        this.state = {
-            inputValue: '',
-        }
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         const savedValue = localStorage.getItem('inputValue')
-
         if (savedValue) {
-            this.setState({ inputValue: savedValue })
+            setInputValue(savedValue)
+            onChange(savedValue)
         }
+    }, [])
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(e.target.value)
     }
 
-    handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({ inputValue: e.target.value })
+    const handleImgClick = () => {
+        localStorage.setItem('inputValue', inputValue)
+        onChange(inputValue)
     }
 
-    handleImgClick = () => {
-        localStorage.setItem('inputValue', this.state.inputValue)
-        window.location.reload()
-    }
-
-    render() {
-        return (
-            <div className="wrapperSearch">
-                <input
-                    className="searchInput"
-                    type="text"
-                    placeholder="Search..."
-                    value={this.state.inputValue}
-                    onChange={this.handleChange}
-                />
-                <img
-                    className="searchImg "
-                    src={search}
-                    alt="search"
-                    onClick={this.handleImgClick}
-                />
-            </div>
-        )
-    }
+    return (
+        <div className="wrapperSearch">
+            <input
+                className="searchInput"
+                type="text"
+                placeholder="Search..."
+                value={inputValue}
+                onChange={handleChange}
+            />
+            <img
+                className="searchImg"
+                src={search}
+                alt="search"
+                onClick={handleImgClick}
+            />
+        </div>
+    )
 }
 
 export default Search
