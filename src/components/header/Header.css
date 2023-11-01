@@ -8,24 +8,15 @@ header {
 
 .imgTitle {
     object-fit: contain;
-    height: 100px;
+    height: 300px;
 }
 
-.arrow {
-    width: 24px;
-    height: 24px;
-}
-
-.text-flicker {
-    animation: flicker 2s infinite;
-}
-
-@keyframes flicker {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
+.text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c10303;
+    border: 2px solid #c10303;
+    padding: 5px 0;
+    width: 199px;
 }

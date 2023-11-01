@@ -2,20 +2,20 @@ import { useState, useEffect } from 'react'
 import './Main.css'
 import Pagination from '../pagination/Pagination'
 import { useSearchParams } from 'react-router-dom'
-
+import photo from '../../assets/img/photo.webp'
 interface PropsPerson {
     searchValue: string
 }
 
 interface Person {
-    name: string
-    height: string
-    mass: string
-    hair_color: string
-    skin_color: string
-    eye_color: string
-    birth_year: string
-    gender: string
+    forename: string
+    date_of_birth: string
+    entity_id: string
+    _links: {
+        thumbnail?: {
+            href: string
+        }
+    }
 }
 
 const Main = ({ searchValue }: PropsPerson) => {
@@ -27,15 +27,17 @@ const Main = ({ searchValue }: PropsPerson) => {
 
     const getDataForServer = (current: number = currentPage) => {
         const url = searchValue
-            ? `?search=${searchValue}&page=${current}`
-            : `?page=${current}`
+            ? `forename=${searchValue}&page=${current}&resultPerPage=12`
+            : `page=${current}&resultPerPage=12`
         setIsLoaded(true)
-        fetch(`https://swapi.dev/api/people/${url}`)
+        fetch(`https://ws-public.interpol.int/notices/v1/red?${url}`)
             .then((res) => res.json())
             .then((result) => {
                 setIsLoaded(false)
-                setItems(result.results)
-                setTotalPage(Math.ceil(result.count / 10))
+                setItems(result._embedded.notices)
+                setTotalPage(
+                    Math.ceil(result.total > 90 ? 10 : result.count / 12)
+                )
             })
     }
     useEffect(() => {
@@ -60,13 +62,21 @@ const Main = ({ searchValue }: PropsPerson) => {
     ) : (
         <>
             <div className="wrapperMain">
-                {items.map((item, index) => (
-                    <div key={index} className="card">
-                        <p>Name: {item.name}</p>
-                        <p>Height: {item.height}</p>
-                        <p>Mass: {item.mass}</p>
-                        <p>Birth Year: {item.birth_year}</p>
-                        <p>Gender: {item.gender}</p>
+                {items.map((item) => (
+                    <div key={item.entity_id} className="card">
+                        <p>
+                            {item._links?.thumbnail ? (
+                                <img
+                                    className="photo"
+                                    alt=""
+                                    src={item._links.thumbnail.href}
+                                />
+                            ) : (
+                                <img className="photo" alt="" src={photo} />
+                            )}
+                        </p>
+                        <p>{item.forename}</p>
+                        <p>Date(s) of Birth Used: {item.date_of_birth}</p>
                     </div>
                 ))}
             </div>
