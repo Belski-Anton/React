@@ -69,12 +69,12 @@ const Main = ({ searchValue }: PropsPerson) => {
         return (
             <ReactCountryFlag
                 countryCode={code}
-                svg // Use SVG for better quality flags
+                svg
                 style={{
                     width: '2em',
                     height: '2em',
                 }}
-                title={code} // You could use country name for the title attribute
+                title={code}
             />
         )
     }
@@ -88,7 +88,7 @@ const Main = ({ searchValue }: PropsPerson) => {
             <div className="wrapperMain">
                 {items.map((item) => (
                     <div key={item.entity_id} className="card">
-                        <p>
+                        <div>
                             {item._links?.thumbnail ? (
                                 <img
                                     className="photo"
@@ -102,19 +102,19 @@ const Main = ({ searchValue }: PropsPerson) => {
                                     src={photo}
                                 />
                             )}
-                        </p>
+                        </div>
                         <p>{item.forename}</p>
                         <p>Date(s) of Birth Used: {item.date_of_birth}</p>
                         <p>
                             {Array.isArray(item.nationalities) &&
                             item.nationalities.length > 0
                                 ? item.nationalities.map((code) => (
-                                      <div key={code} className="nationality">
+                                      <span key={code} className="nationality">
                                           {renderFlag(code)}
                                           <span>
                                               {getNationalityName(code)}
                                           </span>
-                                      </div>
+                                      </span>
                                   ))
                                 : 'No nationalities available'}
                         </p>

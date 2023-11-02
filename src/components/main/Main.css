@@ -8,6 +8,7 @@
 
 .card {
     margin: 0 auto;
+    text-align: center;
     min-height: 120px;
     width: 100%;
     border: 1px solid #f5f5f5d9;
@@ -20,6 +21,8 @@
 .photo {
     width: 100px;
     height: 100px;
+    display: inline-block;
+    margin: 0 auto;
 }
 
 p {
