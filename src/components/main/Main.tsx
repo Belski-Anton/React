@@ -118,6 +118,7 @@ const Main = ({ searchValue }: PropsPerson) => {
                                   ))
                                 : 'No nationalities available'}
                         </p>
+                        <span className="viewMore">view more</span>
                     </div>
                 ))}
             </div>
