@@ -1,16 +1,38 @@
 import { useState, useEffect } from 'react'
 import './Main.css'
 import Pagination from '../pagination/Pagination'
-import { useSearchParams } from 'react-router-dom'
+import {
+    Outlet,
+    useNavigate,
+    useParams,
+    useSearchParams,
+} from 'react-router-dom'
 import photo from '../../assets/img/photo.webp'
 import iso3166 from 'iso-3166-1'
 import ReactCountryFlag from 'react-country-flag'
 
+export const renderFlag = (code: string) => {
+    return (
+        <ReactCountryFlag
+            countryCode={code}
+            svg
+            style={{
+                width: '2em',
+                height: '2em',
+            }}
+            title={code}
+        />
+    )
+}
+export const getNationalityName = (code: string) => {
+    const country = iso3166.whereAlpha2(code)
+    return country ? country.country : code
+}
 interface PropsPerson {
     searchValue: string
 }
 
-interface Person {
+export interface Person {
     forename: string
     date_of_birth: string
     entity_id: string
@@ -23,6 +45,8 @@ interface Person {
 }
 
 const Main = ({ searchValue }: PropsPerson) => {
+    const navigate = useNavigate()
+    const { id } = useParams()
     const [isLoaded, setIsLoaded] = useState(false)
     const [items, setItems] = useState<Person[]>([])
     const [totalPage, setTotalPage] = useState(0)
@@ -60,23 +84,9 @@ const Main = ({ searchValue }: PropsPerson) => {
         setSearchParams({ page: String(newPage) })
     }
 
-    const getNationalityName = (code: string) => {
-        const country = iso3166.whereAlpha2(code)
-        return country ? country.country : code
-    }
-
-    const renderFlag = (code: string) => {
-        return (
-            <ReactCountryFlag
-                countryCode={code}
-                svg
-                style={{
-                    width: '2em',
-                    height: '2em',
-                }}
-                title={code}
-            />
-        )
+    const openDetails = (entityId: string) => {
+        const formattedEntityId = entityId.replace(/\//g, '-')
+        navigate(`detail/${formattedEntityId}/?page=${currentPage}`)
     }
 
     return isLoaded || !items.length ? (
@@ -84,8 +94,13 @@ const Main = ({ searchValue }: PropsPerson) => {
             {isLoaded ? 'Loading...' : 'Nothing was found for your request'}
         </div>
     ) : (
-        <>
-            <div className="wrapperMain">
+        <div className={id ? 'wrapperContent' : ''}>
+            <div
+                className="wrapperMain"
+                onClick={() =>
+                    id ? navigate(`../../?page=${currentPage}`) : undefined
+                }
+            >
                 {items.map((item) => (
                     <div key={item.entity_id} className="card">
                         <div>
@@ -118,16 +133,24 @@ const Main = ({ searchValue }: PropsPerson) => {
                                   ))
                                 : 'No nationalities available'}
                         </p>
-                        <span className="viewMore">view more</span>
+                        <span
+                            className="viewMore"
+                            onClick={() => openDetails(item.entity_id)}
+                        >
+                            view more
+                        </span>
                     </div>
                 ))}
             </div>
-            <Pagination
-                totalPage={totalPage}
-                currentPage={currentPage}
-                changePage={changePage}
-            />
-        </>
+            {!id && (
+                <Pagination
+                    totalPage={totalPage}
+                    currentPage={currentPage}
+                    changePage={changePage}
+                />
+            )}
+            <Outlet />
+        </div>
     )
 }
 
