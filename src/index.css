@@ -14,6 +14,7 @@
 }
 
 body {
+    font-family: 'Special Elite';
     margin: 0 auto;
     display: flex;
     flex-direction: column;

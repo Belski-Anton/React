@@ -4,10 +4,12 @@ import title from '../../assets/img/logonterpol.png'
 const Header = () => {
     return (
         <header>
-            <h1>
+            <h1 className="title">
                 <img className="imgTitle" src={title} alt="name" />
+                <div className="textTitle">
+                    View and search public Red Notices for wanted persons
+                </div>
             </h1>
-            <h2 className="text">Wanted</h2>
         </header>
     )
 }
