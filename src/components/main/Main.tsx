@@ -3,6 +3,7 @@ import './Main.css'
 import Pagination from '../pagination/Pagination'
 import { useSearchParams } from 'react-router-dom'
 import photo from '../../assets/img/photo.webp'
+
 interface PropsPerson {
     searchValue: string
 }
@@ -11,6 +12,7 @@ interface Person {
     forename: string
     date_of_birth: string
     entity_id: string
+    nationalities: string[]
     _links: {
         thumbnail?: {
             href: string
@@ -40,6 +42,7 @@ const Main = ({ searchValue }: PropsPerson) => {
                 )
             })
     }
+
     useEffect(() => {
         setSearchParams({ page: String(1) })
         getDataForServer(1)
@@ -77,6 +80,13 @@ const Main = ({ searchValue }: PropsPerson) => {
                         </p>
                         <p>{item.forename}</p>
                         <p>Date(s) of Birth Used: {item.date_of_birth}</p>
+                        {/* Обновлённая проверка и вывод национальностей */}
+                        <p>
+                            Nationalities:{' '}
+                            {Array.isArray(item.nationalities)
+                                ? item.nationalities.join(', ')
+                                : 'No nationalities available'}
+                        </p>
                     </div>
                 ))}
             </div>
