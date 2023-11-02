@@ -3,6 +3,7 @@ import './Main.css'
 import Pagination from '../pagination/Pagination'
 import { useSearchParams } from 'react-router-dom'
 import photo from '../../assets/img/photo.webp'
+import iso3166 from 'iso-3166-1'
 
 interface PropsPerson {
     searchValue: string
@@ -58,6 +59,11 @@ const Main = ({ searchValue }: PropsPerson) => {
         setSearchParams({ page: String(newPage) })
     }
 
+    const getNationalityName = (code: string) => {
+        const country = iso3166.whereAlpha2(code)
+        return country ? country.country : code
+    }
+
     return isLoaded || !items.length ? (
         <div className="load">
             {isLoaded ? 'Loading...' : 'Nothing was found for your request'}
@@ -80,11 +86,11 @@ const Main = ({ searchValue }: PropsPerson) => {
                         </p>
                         <p>{item.forename}</p>
                         <p>Date(s) of Birth Used: {item.date_of_birth}</p>
-                        {/* Обновлённая проверка и вывод национальностей */}
                         <p>
-                            Nationalities:{' '}
                             {Array.isArray(item.nationalities)
-                                ? item.nationalities.join(', ')
+                                ? item.nationalities
+                                      .map(getNationalityName)
+                                      .join(', ')
                                 : 'No nationalities available'}
                         </p>
                     </div>
