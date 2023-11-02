@@ -4,6 +4,7 @@ import Pagination from '../pagination/Pagination'
 import { useSearchParams } from 'react-router-dom'
 import photo from '../../assets/img/photo.webp'
 import iso3166 from 'iso-3166-1'
+import ReactCountryFlag from 'react-country-flag'
 
 interface PropsPerson {
     searchValue: string
@@ -64,6 +65,20 @@ const Main = ({ searchValue }: PropsPerson) => {
         return country ? country.country : code
     }
 
+    const renderFlag = (code: string) => {
+        return (
+            <ReactCountryFlag
+                countryCode={code}
+                svg // Use SVG for better quality flags
+                style={{
+                    width: '2em',
+                    height: '2em',
+                }}
+                title={code} // You could use country name for the title attribute
+            />
+        )
+    }
+
     return isLoaded || !items.length ? (
         <div className="load">
             {isLoaded ? 'Loading...' : 'Nothing was found for your request'}
@@ -77,20 +92,30 @@ const Main = ({ searchValue }: PropsPerson) => {
                             {item._links?.thumbnail ? (
                                 <img
                                     className="photo"
-                                    alt=""
+                                    alt={item.forename}
                                     src={item._links.thumbnail.href}
                                 />
                             ) : (
-                                <img className="photo" alt="" src={photo} />
+                                <img
+                                    className="photo"
+                                    alt={item.forename}
+                                    src={photo}
+                                />
                             )}
                         </p>
                         <p>{item.forename}</p>
                         <p>Date(s) of Birth Used: {item.date_of_birth}</p>
                         <p>
-                            {Array.isArray(item.nationalities)
-                                ? item.nationalities
-                                      .map(getNationalityName)
-                                      .join(', ')
+                            {Array.isArray(item.nationalities) &&
+                            item.nationalities.length > 0
+                                ? item.nationalities.map((code) => (
+                                      <div key={code} className="nationality">
+                                          {renderFlag(code)}
+                                          <span>
+                                              {getNationalityName(code)}
+                                          </span>
+                                      </div>
+                                  ))
                                 : 'No nationalities available'}
                         </p>
                     </div>
