@@ -122,16 +122,21 @@ const Main = ({ searchValue }: PropsPerson) => {
                         <p>Date(s) of Birth Used: {item.date_of_birth}</p>
                         <p>
                             {Array.isArray(item.nationalities) &&
-                            item.nationalities.length > 0
-                                ? item.nationalities.map((code) => (
-                                      <span key={code} className="nationality">
-                                          {renderFlag(code)}
-                                          <span>
-                                              {getNationalityName(code)}
-                                          </span>
-                                      </span>
-                                  ))
-                                : 'No nationalities available'}
+                            item.nationalities.length > 0 ? (
+                                <span
+                                    key={item.nationalities[0]}
+                                    className="nationality"
+                                >
+                                    {renderFlag(item.nationalities[0])}
+                                    <span>
+                                        {getNationalityName(
+                                            item.nationalities[0]
+                                        )}
+                                    </span>
+                                </span>
+                            ) : (
+                                'No nationalities available'
+                            )}
                         </p>
                         <span
                             className="viewMore"

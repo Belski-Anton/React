@@ -27,20 +27,29 @@ const Search = ({ onChange }: PropsSearch) => {
     }
 
     return (
-        <div className="wrapperSearch">
-            <input
-                className="searchInput"
-                type="text"
-                placeholder="Search..."
-                value={inputValue}
-                onChange={handleChange}
-            />
-            <img
-                className="searchImg"
-                src={search}
-                alt="search"
-                onClick={handleImgClick}
-            />
+        <div className="wrapperSelectSearch">
+            <select name="" id="">
+                <option value="">CHOOSE</option>
+                <option>8</option>
+                <option>12</option>
+                <option>16</option>
+            </select>
+
+            <div className="wrapperSearch">
+                <input
+                    className="searchInput"
+                    type="text"
+                    placeholder="Search..."
+                    value={inputValue}
+                    onChange={handleChange}
+                />
+                <img
+                    className="searchImg"
+                    src={search}
+                    alt="search"
+                    onClick={handleImgClick}
+                />
+            </div>
         </div>
     )
 }

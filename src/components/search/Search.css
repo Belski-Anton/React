@@ -1,3 +1,10 @@
+.wrapperSelectSearch {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+}
+
 .wrapperSearch {
     text-align: center;
     display: flex;
