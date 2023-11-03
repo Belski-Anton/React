@@ -1,3 +1,11 @@
 .wrapperDetails {
-    color: red;
+    color: rgb(75, 73, 73);
+}
+
+.nationalite {
+    display: flex;
+}
+
+.descrCard {
+    width: 300px;
 }

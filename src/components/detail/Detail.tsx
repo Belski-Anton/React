@@ -48,14 +48,24 @@ const Detail = () => {
                         />
                     )}
                 </div>
-                <div>{data.forename}</div>
+                <div>Name:{data.forename}</div>
                 <div>
+                    Age:{' '}
                     {moment(data.date_of_birth, 'YYYY/MM/DD').fromNow(true)}
                 </div>
-                <div>{data.height}</div>
-                <div>{data.weight}</div>
-                <div>{data.sex_id}</div>
+                <div>Height:{data.height}</div>
+                <div>Weigt:{data.weight}</div>
                 <div>
+                    Sex:{' '}
+                    {data.sex_id === 'M'
+                        ? 'Male'
+                        : data.sex_id === 'F'
+                        ? 'Female'
+                        : data.sex_id}
+                </div>
+
+                <div className="nationalite">
+                    Nationality :{' '}
                     {Array.isArray(data.nationalities) &&
                     data.nationalities.length > 0
                         ? data.nationalities.map((code) => (
@@ -68,7 +78,9 @@ const Detail = () => {
                 </div>
 
                 {!!data.arrest_warrants.length && (
-                    <div>{data?.arrest_warrants[0].charge}</div>
+                    <div className="descrCard">
+                        {data?.arrest_warrants[0].charge}
+                    </div>
                 )}
             </div>
         )
