@@ -136,14 +136,14 @@ const Main = ({ searchValue }: PropsPerson) => {
                                     </span>
                                 </span>
                             ) : (
-                                <div className="wrapperNoFlag">
+                                <span className="wrapperNoFlag">
                                     Unknown nationality
                                     <img
                                         className="noFlag"
                                         src={noflag}
                                         alt="flag"
                                     />
-                                </div>
+                                </span>
                             )}
                         </p>
                         <span
