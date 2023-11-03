@@ -3,6 +3,7 @@ import ButtonWithError from '../button/ButtonWithError'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Detail from '../detail/Detail'
+import Footer from '../footer/Footer'
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                     <Route path="detail/:id" element={<Detail />} />
                 </Route>
             </Routes>
+            <Footer />
         </>
     )
 }
