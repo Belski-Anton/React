@@ -26,6 +26,19 @@
     margin: 0 auto;
 }
 
+.wrapperNoFlag {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.noFlag {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    align-self: center;
+}
+
 p {
     margin: 0;
     text-align: center;

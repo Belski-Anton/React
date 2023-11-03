@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Main.css'
 import Pagination from '../pagination/Pagination'
+import noflag from '../../assets/img/noflag.png'
 import {
     Outlet,
     useNavigate,
@@ -135,7 +136,14 @@ const Main = ({ searchValue }: PropsPerson) => {
                                     </span>
                                 </span>
                             ) : (
-                                'No nationalities available'
+                                <div className="wrapperNoFlag">
+                                    Unknown nationality
+                                    <img
+                                        className="noFlag"
+                                        src={noflag}
+                                        alt="flag"
+                                    />
+                                </div>
                             )}
                         </p>
                         <span
