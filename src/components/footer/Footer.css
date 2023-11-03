@@ -1,12 +1,15 @@
 .wrapperFooter {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
     padding: 20px;
 }
 
 .footerText {
-    text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.wrapperFooter > a {
+    display: flex;
 }

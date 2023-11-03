@@ -1,5 +1,4 @@
 import React, { Component, ErrorInfo } from 'react'
-import img from '../assets/img/star-wars-yoda-may-the-force-be-with-you-i28977.jpg'
 interface Props {
     children: React.ReactNode
 }
@@ -24,12 +23,6 @@ class ErrorBoundary extends Component<Props, State> {
             return (
                 <>
                     <h1>Something went wrong.</h1>
-
-                    <img
-                        src={img}
-                        alt="Error"
-                        style={{ margin: '0 auto', display: 'block' }}
-                    />
                 </>
             )
         }
