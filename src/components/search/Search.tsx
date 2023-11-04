@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Search.css'
 import search from '../../assets/img/search.svg'
-
+import Dropdown from '../dropdown/Dropdown'
 interface PropsSearch {
     onChange: (val: string) => void
 }
@@ -28,12 +28,7 @@ const Search = ({ onChange }: PropsSearch) => {
 
     return (
         <div className="wrapperSelectSearch">
-            <select name="" id="">
-                <option value="">CHOOSE</option>
-                <option>8</option>
-                <option>12</option>
-                <option>16</option>
-            </select>
+            <Dropdown />
 
             <div className="wrapperSearch">
                 <input
