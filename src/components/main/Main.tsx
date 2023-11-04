@@ -46,6 +46,7 @@ export interface Person {
 }
 
 const Main = ({ searchValue }: PropsPerson) => {
+    const currentParams = new URLSearchParams(window.location.search)
     const navigate = useNavigate()
     const { id } = useParams()
     const [isLoaded, setIsLoaded] = useState(false)
@@ -53,11 +54,12 @@ const Main = ({ searchValue }: PropsPerson) => {
     const [totalPage, setTotalPage] = useState(0)
     const [searchParams, setSearchParams] = useSearchParams()
     const currentPage = Number(searchParams.get('page')) || 1
+    const resultPerPage = Number(searchParams.get('resultPerPage')) || 12
 
     const getDataForServer = (current: number = currentPage) => {
         const url = searchValue
-            ? `forename=${searchValue}&page=${current}&resultPerPage=12`
-            : `page=${current}&resultPerPage=12`
+            ? `forename=${searchValue}&page=${current}&resultPerPage=${resultPerPage}`
+            : `page=${current}&resultPerPage=${resultPerPage}`
         setIsLoaded(true)
         fetch(`https://ws-public.interpol.int/notices/v1/red?${url}`)
             .then((res) => res.json())
@@ -65,24 +67,28 @@ const Main = ({ searchValue }: PropsPerson) => {
                 setIsLoaded(false)
                 setItems(result._embedded.notices)
                 setTotalPage(
-                    Math.ceil(result.total > 90 ? 10 : result.count / 12)
+                    Math.ceil(
+                        result.total > 90 ? 10 : result.count / resultPerPage
+                    )
                 )
             })
     }
 
     useEffect(() => {
-        setSearchParams({ page: String(1) })
+        currentParams.set('page', String(1))
+        setSearchParams(currentParams.toString())
         getDataForServer(1)
-    }, [searchValue])
+    }, [searchValue, resultPerPage])
 
     useEffect(() => {
-        if (currentPage !== 1 || !searchValue) {
+        if (currentPage) {
             getDataForServer()
         }
     }, [currentPage])
 
     const changePage = (newPage: number) => {
-        setSearchParams({ page: String(newPage) })
+        currentParams.set('page', String(newPage))
+        setSearchParams(currentParams.toString())
     }
 
     const openDetails = (entityId: string) => {
@@ -102,8 +108,8 @@ const Main = ({ searchValue }: PropsPerson) => {
                     id ? navigate(`../../?page=${currentPage}`) : undefined
                 }
             >
-                {items.map((item) => (
-                    <div key={item.entity_id} className="card">
+                {items.map((item, idx) => (
+                    <div key={`item-${item.entity_id}-${idx}`} className="card">
                         <div>
                             {item._links?.thumbnail ? (
                                 <img

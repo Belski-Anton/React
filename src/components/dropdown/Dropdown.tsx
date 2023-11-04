@@ -1,16 +1,25 @@
 import React, { useState } from 'react'
 import './Dropdown.css'
+import { useSearchParams } from 'react-router-dom'
 
-const Dropdown: React.FC = () => {
+const Dropdown = () => {
+    const currentParams = new URLSearchParams(window.location.search)
     const [isActive, setIsActive] = useState<boolean>(false)
-    const [selected, setSelected] = useState<string>('Choose one')
-
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [selected, setSelected] = useState<string>(
+        searchParams.get('resultPerPage')
+            ? searchParams.get('resultPerPage')!
+            : 'Chose'
+    )
     function handleItemClick(e: React.MouseEvent<HTMLDivElement>) {
         const target = e.target as HTMLDivElement
+        console.log(target)
+
         setSelected(target.textContent || 'Choose one')
         setIsActive(false)
+        currentParams.set('resultPerPage', String(target.textContent))
+        setSearchParams(currentParams.toString())
     }
-
     return (
         <>
             <div className="dropdown">
