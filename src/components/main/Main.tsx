@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react'
 import './Main.css'
+import Card from '../card/Card'
+import { useState, useEffect } from 'react'
 import Pagination from '../pagination/Pagination'
-import noflag from '../../assets/img/noflag.png'
 import {
     Outlet,
     useNavigate,
     useParams,
     useSearchParams,
 } from 'react-router-dom'
-import photo from '../../assets/img/photo.webp'
 import iso3166 from 'iso-3166-1'
 import ReactCountryFlag from 'react-country-flag'
 
@@ -109,56 +108,11 @@ const Main = ({ searchValue }: PropsPerson) => {
                 }
             >
                 {items.map((item, idx) => (
-                    <div key={`item-${item.entity_id}-${idx}`} className="card">
-                        <div>
-                            {item._links?.thumbnail ? (
-                                <img
-                                    className="photo"
-                                    alt={item.forename}
-                                    src={item._links.thumbnail.href}
-                                />
-                            ) : (
-                                <img
-                                    className="photo"
-                                    alt={item.forename}
-                                    src={photo}
-                                />
-                            )}
-                        </div>
-                        <p>{item.forename}</p>
-                        <p>Date(s) of Birth Used: {item.date_of_birth}</p>
-                        <p>
-                            {Array.isArray(item.nationalities) &&
-                            item.nationalities.length > 0 ? (
-                                <span
-                                    key={item.nationalities[0]}
-                                    className="nationality"
-                                >
-                                    {renderFlag(item.nationalities[0])}
-                                    <span>
-                                        {getNationalityName(
-                                            item.nationalities[0]
-                                        )}
-                                    </span>
-                                </span>
-                            ) : (
-                                <span className="wrapperNoFlag">
-                                    Unknown nationality
-                                    <img
-                                        className="noFlag"
-                                        src={noflag}
-                                        alt="flag"
-                                    />
-                                </span>
-                            )}
-                        </p>
-                        <span
-                            className="viewMore"
-                            onClick={() => openDetails(item.entity_id)}
-                        >
-                            view more
-                        </span>
-                    </div>
+                    <Card
+                        key={`item-${item.entity_id}-${idx}`}
+                        item={item}
+                        openDetails={openDetails}
+                    />
                 ))}
             </div>
             {!id && (
