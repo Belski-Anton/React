@@ -1,21 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useContext } from 'react'
 import './Search.css'
 import search from '../../assets/img/search.svg'
 import Dropdown from '../dropdown/Dropdown'
-interface PropsSearch {
-    onChange: (val: string) => void
-}
+import { AppContext } from '../../page/MainPage'
 
-const Search = ({ onChange }: PropsSearch) => {
-    const [inputValue, setInputValue] = useState('')
-
-    useEffect(() => {
-        const savedValue = localStorage.getItem('inputValue')
-        if (savedValue) {
-            setInputValue(savedValue)
-            onChange(savedValue)
-        }
-    }, [])
+const Search = () => {
+    const { state, setState } = useContext(AppContext)
+    const [inputValue, setInputValue] = useState(state.searchValue)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value)
@@ -23,7 +14,7 @@ const Search = ({ onChange }: PropsSearch) => {
 
     const handleImgClick = () => {
         localStorage.setItem('inputValue', inputValue)
-        onChange(inputValue)
+        setState({ ...state, searchValue: inputValue })
     }
 
     return (

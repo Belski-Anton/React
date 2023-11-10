@@ -1,6 +1,6 @@
 import './Main.css'
 import Card from '../card/Card'
-import { useState, useEffect } from 'react'
+import { useContext } from 'react'
 import Pagination from '../pagination/Pagination'
 import {
     Outlet,
@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom'
 import iso3166 from 'iso-3166-1'
 import ReactCountryFlag from 'react-country-flag'
+import { AppContext } from '../../page/MainPage'
 
 export const renderFlag = (code: string) => {
     return (
@@ -28,9 +29,6 @@ export const getNationalityName = (code: string) => {
     const country = iso3166.whereAlpha2(code)
     return country ? country.country : code
 }
-interface PropsPerson {
-    searchValue: string
-}
 
 export interface Person {
     forename: string
@@ -44,47 +42,15 @@ export interface Person {
     }
 }
 
-const Main = ({ searchValue }: PropsPerson) => {
+const Main = () => {
+    const {
+        state: { isLoaded, items, totalPage },
+    } = useContext(AppContext)
     const currentParams = new URLSearchParams(window.location.search)
     const navigate = useNavigate()
     const { id } = useParams()
-    const [isLoaded, setIsLoaded] = useState(false)
-    const [items, setItems] = useState<Person[]>([])
-    const [totalPage, setTotalPage] = useState(0)
     const [searchParams, setSearchParams] = useSearchParams()
     const currentPage = Number(searchParams.get('page')) || 1
-    const resultPerPage = Number(searchParams.get('resultPerPage')) || 12
-
-    const getDataForServer = (current: number = currentPage) => {
-        const url = searchValue
-            ? `forename=${searchValue}&page=${current}&resultPerPage=${resultPerPage}`
-            : `page=${current}&resultPerPage=${resultPerPage}`
-        setIsLoaded(true)
-        fetch(`https://ws-public.interpol.int/notices/v1/red?${url}`)
-            .then((res) => res.json())
-            .then((result) => {
-                setIsLoaded(false)
-                setItems(result._embedded.notices)
-                setTotalPage(
-                    Math.ceil(
-                        result.total > 90 ? 10 : result.count / resultPerPage
-                    )
-                )
-            })
-    }
-
-    useEffect(() => {
-        currentParams.set('page', String(1))
-        setSearchParams(currentParams.toString())
-        getDataForServer(1)
-    }, [searchValue, resultPerPage])
-
-    useEffect(() => {
-        if (currentPage) {
-            getDataForServer()
-        }
-    }, [currentPage])
-
     const changePage = (newPage: number) => {
         currentParams.set('page', String(newPage))
         setSearchParams(currentParams.toString())
