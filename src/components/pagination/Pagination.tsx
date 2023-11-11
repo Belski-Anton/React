@@ -26,6 +26,7 @@ const Pagination = ({
                     className={`numberPage ${
                         pageNumber === currentPage ? 'activePage' : ''
                     }`}
+                    data-testid="page-number"
                 >
                     {pageNumber}
                 </span>
