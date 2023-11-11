@@ -9,7 +9,7 @@ interface CardsProps {
 
 const Card = ({ item, openDetails }: CardsProps) => {
     return (
-        <div className="card">
+        <div className="card" data-testid="card">
             <div>
                 {item._links?.thumbnail ? (
                     <img

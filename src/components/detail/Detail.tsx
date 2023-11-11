@@ -45,12 +45,12 @@ const Detail = () => {
         !!data && (
             <div className="wrapperDetails">
                 <div className="wrapperCross">
-                    {' '}
                     <img
                         className="cross"
                         src={cross}
                         alt="close"
                         onClick={handleCloseDetail}
+                        data-testid="close"
                     />
                 </div>
                 <div className="wrapperPhoto">
@@ -70,7 +70,6 @@ const Detail = () => {
                 </div>
                 <div>Forename:{data.forename}</div>
                 <div>Name:{data.name}</div>
-                <div></div>
                 <div>Place of Birth:{data.place_of_birth}</div>
                 <div>
                     Age:{' '}

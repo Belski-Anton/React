@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo } from 'react'
+import NotFound from '../pages/notFound/NotFound'
 interface Props {
     children: React.ReactNode
 }
@@ -20,11 +21,7 @@ class ErrorBoundary extends Component<Props, State> {
 
     render() {
         if (this.state.hasError) {
-            return (
-                <>
-                    <h1>Something went wrong.</h1>
-                </>
-            )
+            return <NotFound />
         }
 
         return this.props.children

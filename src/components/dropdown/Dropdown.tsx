@@ -13,7 +13,6 @@ const Dropdown = () => {
     )
     function handleItemClick(e: React.MouseEvent<HTMLDivElement>) {
         const target = e.target as HTMLDivElement
-        console.log(target)
 
         setSelected(target.textContent || 'Choose one')
         setIsActive(false)
@@ -28,6 +27,7 @@ const Dropdown = () => {
                         setIsActive(!isActive)
                     }}
                     className="dropdown-btn"
+                    data-testid="select"
                 >
                     {selected}
                     <span
@@ -37,16 +37,29 @@ const Dropdown = () => {
                     />
                 </div>
                 <div
+                    data-testid="content"
                     className="dropdown-content"
                     style={{ display: isActive ? 'block' : 'none' }}
                 >
-                    <div className="item" onClick={handleItemClick}>
+                    <div
+                        className="item"
+                        onClick={handleItemClick}
+                        data-testid="value"
+                    >
                         8
                     </div>
-                    <div className="item" onClick={handleItemClick}>
+                    <div
+                        className="item"
+                        onClick={handleItemClick}
+                        data-testid="value"
+                    >
                         12
                     </div>
-                    <div className="item" onClick={handleItemClick}>
+                    <div
+                        className="item"
+                        onClick={handleItemClick}
+                        data-testid="value"
+                    >
                         16
                     </div>
                 </div>

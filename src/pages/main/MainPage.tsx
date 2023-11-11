@@ -1,10 +1,10 @@
 import { createContext, useEffect } from 'react'
-import Header from '../components/header/Header'
-import Search from '../components/search/Search'
-import Main from '../components/main/Main'
+import Header from '../../components/header/Header'
+import Search from '../../components/search/Search'
+import Main from '../../components/main/Main'
 import { useState } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
-import { Person } from '../components/main/Main'
+import { Person } from '../../components/main/Main'
 
 interface IInitState {
     searchValue: string
@@ -13,7 +13,7 @@ interface IInitState {
     totalPage: number
 }
 
-const initialState: IInitState = {
+export const initialState: IInitState = {
     searchValue: localStorage.getItem('inputValue') ?? '',
     items: [],
     isLoaded: false,

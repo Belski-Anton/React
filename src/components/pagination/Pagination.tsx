@@ -12,7 +12,7 @@ const Pagination = ({
 }: PropsPagination) => {
     const generatePageNumbers = () => {
         const pageNumbers = []
-        for (let i = 1; i <= Math.min(9, totalPage); i++) {
+        for (let i = 1; i <= Math.min(totalPage); i++) {
             pageNumbers.push(i)
         }
         return pageNumbers
@@ -21,6 +21,7 @@ const Pagination = ({
         <div className="pagination">
             {generatePageNumbers().map((pageNumber) => (
                 <span
+                    data-testid="btn-page"
                     onClick={() => changePage(pageNumber)}
                     key={pageNumber}
                     className={`numberPage ${

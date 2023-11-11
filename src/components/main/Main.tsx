@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom'
 import iso3166 from 'iso-3166-1'
 import ReactCountryFlag from 'react-country-flag'
-import { AppContext } from '../../page/MainPage'
+import { AppContext } from '../../pages/main/MainPage'
 
 export const renderFlag = (code: string) => {
     return (
