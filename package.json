@@ -14,7 +14,8 @@
         "commitlint": "commitlint --edit",
         "deploy": "vite build && gh-pages -d dist",
         "test": "vitest --root src/",
-        "test:coverage": "vitest run --coverage"
+        "test:coverage": "vitest run --coverage",
+        "setup-merge-driver": "npm-merge-driver-install"
     },
     "dependencies": {
         "iso-3166-1": "^2.1.1",
