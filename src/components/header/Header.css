@@ -1,0 +1,21 @@
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.imgTitle {
+    object-fit: contain;
+    height: 300px;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+}
+
+.textTitle {
+    color: black;
+}
