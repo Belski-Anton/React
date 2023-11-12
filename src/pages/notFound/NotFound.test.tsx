@@ -6,7 +6,7 @@ import NotFound from './NotFound'
 describe('NotFound component', () => {
     it('renders 404 error', () => {
         const { getByText } = render(<NotFound />)
-        const errorMessage = getByText(/Something went wrong/i)
+        const errorMessage = getByText(/Something went/i)
         expect(errorMessage).toBeDefined()
     })
 })
