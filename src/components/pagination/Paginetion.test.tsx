@@ -5,10 +5,10 @@ import { fireEvent, render, screen } from '@testing-library/react'
 const mockFn = vi.fn()
 
 describe('Pagination Component', () => {
-    render(<Pagination totalPage={12} currentPage={2} changePage={mockFn} />)
+    render(<Pagination totalPage={6} currentPage={2} changePage={mockFn} />)
     it('renders buttons', () => {
         const buttons = screen.getAllByTestId('btn-page')
-        expect(buttons.length).toBe(12)
+        expect(buttons.length).toBe(6)
     })
 
     it('calls changePage when is clicked', () => {

@@ -4,6 +4,8 @@ import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import Detail from './Detail'
 
 import 'whatwg-fetch'
+import { Provider } from 'react-redux'
+import { store } from '../../store'
 
 global.fetch = vi.fn(() =>
     Promise.resolve(
@@ -28,11 +30,13 @@ global.fetch = vi.fn(() =>
 describe('Detail Component', () => {
     it('renders correctly when data is loaded', async () => {
         render(
-            <MemoryRouter initialEntries={['/detail/123']}>
-                <Routes>
-                    <Route path="/detail/:id" element={<Detail />} />
-                </Routes>
-            </MemoryRouter>
+            <Provider store={store}>
+                <MemoryRouter initialEntries={['/detail/123']}>
+                    <Routes>
+                        <Route path="/detail/:id" element={<Detail />} />
+                    </Routes>
+                </MemoryRouter>
+            </Provider>
         )
 
         expect(screen.getByText('Loading...')).toBeDefined()
@@ -45,14 +49,16 @@ describe('Detail Component', () => {
     })
     it('click for button close', async () => {
         render(
-            <MemoryRouter initialEntries={['/detail/123']}>
-                <Routes>
-                    <Route path="/detail/:id" element={<Detail />} />
-                </Routes>
-            </MemoryRouter>
+            <Provider store={store}>
+                <MemoryRouter initialEntries={['/detail/123']}>
+                    <Routes>
+                        <Route path="/detail/:id" element={<Detail />} />
+                    </Routes>
+                </MemoryRouter>
+            </Provider>
         )
 
-        const button = await screen.findByTestId('close')
-        fireEvent.click(button)
+        const button = screen.getAllByTestId('close')
+        fireEvent.click(button[0])
     })
 })

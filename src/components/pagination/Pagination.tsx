@@ -12,7 +12,7 @@ const Pagination = ({
 }: PropsPagination) => {
     const generatePageNumbers = () => {
         const pageNumbers = []
-        for (let i = 1; i <= Math.min(totalPage); i++) {
+        for (let i = 1; i <= Math.min(9, totalPage); i++) {
             pageNumbers.push(i)
         }
         return pageNumbers

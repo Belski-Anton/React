@@ -1,24 +1,20 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
-import { AppContext, initialState } from './MainPage'
 import MainPage from './MainPage'
+import { store } from '../../store'
+import { Provider } from 'react-redux'
 
 describe('MainPage component', () => {
     it('renders correctly', () => {
-        const contextValue = {
-            state: initialState,
-            setState: () => {},
-        }
-
         render(
-            <MemoryRouter initialEntries={['/']}>
-                <AppContext.Provider value={contextValue}>
+            <Provider store={store}>
+                <MemoryRouter initialEntries={['/']}>
                     <Routes>
                         <Route path="/" element={<MainPage />} />
                     </Routes>
-                </AppContext.Provider>
-            </MemoryRouter>
+                </MemoryRouter>
+            </Provider>
         )
 
         const headerElement = screen.getByText(

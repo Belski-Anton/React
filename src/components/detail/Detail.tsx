@@ -1,45 +1,26 @@
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import './Detail.css'
-import { Person, getNationalityName, renderFlag } from '../main/Main'
+import { getNationalityName, renderFlag } from '../main/Main'
 import photo from '../../assets/img/photo.webp'
 import moment from 'moment'
 import cross from '../../assets/img/close.png'
+import { useGetPersonByIdQuery } from '../../api'
 
-interface DataDetail extends Person {
-    arrest_warrants: [{ charge: string }]
-    weight: number
-    height: number
-    sex_id: string
-    place_of_birth: string
-    name: string
-    distinguishing_marks: string
-}
 const Detail = () => {
     const [searchParams] = useSearchParams()
     const currentPage = Number(searchParams.get('page')) || 1
-    const [data, setData] = useState<DataDetail | null>(null)
     const { id } = useParams()
     const navigate = useNavigate()
-    const [isLoaded, setIsLoaded] = useState(false)
-    const getDataForServer = () => {
-        setIsLoaded(true)
-        fetch(`https://ws-public.interpol.int/notices/v1/red/${id}`)
-            .then((res) => res.json())
-            .then((result) => {
-                setIsLoaded(false)
-                setData(result)
-            })
-    }
-    useEffect(() => {
-        getDataForServer()
-    }, [])
+
+    const { data, isFetching } = useGetPersonByIdQuery(id!, {
+        skip: !id,
+    })
     const handleCloseDetail = () => {
         navigate(`../../?page=${currentPage}`)
     }
-    return isLoaded && !data ? (
+    return isFetching && !data?.name ? (
         <div className="load">
-            {isLoaded ? 'Loading...' : 'Nothing was found for your request'}
+            {isFetching ? 'Loading...' : 'Nothing was found for your request'}
         </div>
     ) : (
         !!data && (

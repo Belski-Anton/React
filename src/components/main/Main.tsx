@@ -1,6 +1,5 @@
 import './Main.css'
 import Card from '../card/Card'
-import { useContext } from 'react'
 import Pagination from '../pagination/Pagination'
 import {
     Outlet,
@@ -10,7 +9,8 @@ import {
 } from 'react-router-dom'
 import iso3166 from 'iso-3166-1'
 import ReactCountryFlag from 'react-country-flag'
-import { AppContext } from '../../pages/main/MainPage'
+import { useGetPersonsQuery } from '../../api'
+import { useAppSelector } from '../../store'
 
 export const renderFlag = (code: string) => {
     return (
@@ -30,27 +30,14 @@ export const getNationalityName = (code: string) => {
     return country ? country.country : code
 }
 
-export interface Person {
-    forename: string
-    date_of_birth: string
-    entity_id: string
-    nationalities: string[]
-    _links: {
-        thumbnail?: {
-            href: string
-        }
-    }
-}
-
 const Main = () => {
-    const {
-        state: { isLoaded, items, totalPage },
-    } = useContext(AppContext)
+    const { searchValue } = useAppSelector((state) => state.search)
     const currentParams = new URLSearchParams(window.location.search)
     const navigate = useNavigate()
     const { id } = useParams()
     const [searchParams, setSearchParams] = useSearchParams()
     const currentPage = Number(searchParams.get('page')) || 1
+    const resultPerPage = Number(searchParams.get('resultPerPage')) || 12
     const changePage = (newPage: number) => {
         currentParams.set('page', String(newPage))
         setSearchParams(currentParams.toString())
@@ -60,10 +47,15 @@ const Main = () => {
         const formattedEntityId = entityId.replace(/\//g, '-')
         navigate(`detail/${formattedEntityId}/?page=${currentPage}`)
     }
+    const { data, isFetching } = useGetPersonsQuery({
+        page: currentPage,
+        resultPerPage,
+        searchValue,
+    })
 
-    return isLoaded || !items.length ? (
+    return isFetching || !data?._embedded.notices.length ? (
         <div className="load">
-            {isLoaded ? 'Loading...' : 'Nothing was found for your request'}
+            {isFetching ? 'Loading...' : 'Nothing was found for your request'}
         </div>
     ) : (
         <div className={id ? 'wrapperContent' : ''}>
@@ -73,7 +65,7 @@ const Main = () => {
                     id ? navigate(`../../?page=${currentPage}`) : undefined
                 }
             >
-                {items.map((item, idx) => (
+                {data?._embedded.notices.map((item, idx) => (
                     <Card
                         key={`item-${item.entity_id}-${idx}`}
                         item={item}
@@ -83,7 +75,7 @@ const Main = () => {
             </div>
             {!id && (
                 <Pagination
-                    totalPage={totalPage}
+                    totalPage={data.total / resultPerPage}
                     currentPage={currentPage}
                     changePage={changePage}
                 />

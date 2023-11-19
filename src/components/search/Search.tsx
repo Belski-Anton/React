@@ -1,21 +1,20 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import './Search.css'
 import search from '../../assets/img/search.svg'
 import Dropdown from '../dropdown/Dropdown'
-import { AppContext } from '../../pages/main/MainPage'
+import { useAppDispatch, useAppSelector } from '../../store'
+import { changeValue } from '../../store/searchSlice'
 
 const Search = () => {
-    const { state, setState } = useContext(AppContext)
-    const [inputValue, setInputValue] = useState(state.searchValue)
+    const dispatch = useAppDispatch()
+    const { searchValue } = useAppSelector((state) => state.search)
+    const [inputValue, setInputValue] = useState(searchValue)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value)
     }
 
-    const handleImgClick = () => {
-        localStorage.setItem('inputValue', inputValue)
-        setState({ ...state, searchValue: inputValue })
-    }
+    const handleImgClick = () => dispatch(changeValue(inputValue))
 
     return (
         <div className="wrapperSelectSearch">
