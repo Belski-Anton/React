@@ -15,7 +15,7 @@ interface IGetPerson {
     searchValue: string
 }
 
-interface IDataPerson {
+export interface IDataPerson {
     forename: string
     date_of_birth: string
     entity_id: string

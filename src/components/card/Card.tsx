@@ -1,9 +1,10 @@
+import { IDataPerson } from '../../api'
 import noflag from '../../assets/img/noflag.png'
 import photo from '../../assets/img/photo.webp'
 import { renderFlag, getNationalityName } from '../main/Main'
-import { Person } from '../main/Main'
+
 interface CardsProps {
-    item: Person
+    item: IDataPerson
     openDetails: (arg: string) => void
 }
 
