@@ -10,7 +10,9 @@ import {
 import iso3166 from 'iso-3166-1'
 import ReactCountryFlag from 'react-country-flag'
 import { useGetPersonsQuery } from '../../api'
-import { useAppSelector } from '../../store'
+import { useAppDispatch, useAppSelector } from '../../store'
+import { useEffect } from 'react'
+import { changeFlagData } from '../../store/searchSlice'
 
 export const renderFlag = (code: string) => {
     return (
@@ -31,7 +33,10 @@ export const getNationalityName = (code: string) => {
 }
 
 const Main = () => {
-    const { searchValue } = useAppSelector((state) => state.search)
+    const dispatch = useAppDispatch()
+    const { searchValue, isLoadingData } = useAppSelector(
+        (state) => state.search
+    )
     const currentParams = new URLSearchParams(window.location.search)
     const navigate = useNavigate()
     const { id } = useParams()
@@ -53,9 +58,15 @@ const Main = () => {
         searchValue,
     })
 
-    return isFetching || !data?._embedded.notices.length ? (
+    useEffect(() => {
+        dispatch(changeFlagData(!!isFetching))
+    }, [isFetching])
+
+    return isLoadingData || !data?._embedded.notices.length ? (
         <div className="load">
-            {isFetching ? 'Loading...' : 'Nothing was found for your request'}
+            {isLoadingData
+                ? 'Loading...'
+                : 'Nothing was found for your request'}
         </div>
     ) : (
         <div className={id ? 'wrapperContent' : ''}>

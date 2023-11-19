@@ -5,22 +5,32 @@ import photo from '../../assets/img/photo.webp'
 import moment from 'moment'
 import cross from '../../assets/img/close.png'
 import { useGetPersonByIdQuery } from '../../api'
+import { useAppDispatch, useAppSelector } from '../../store'
+import { useEffect } from 'react'
+import { changeFlagDetail } from '../../store/searchSlice'
 
 const Detail = () => {
+    const dispatch = useAppDispatch()
     const [searchParams] = useSearchParams()
     const currentPage = Number(searchParams.get('page')) || 1
     const { id } = useParams()
     const navigate = useNavigate()
-
+    const { isLoadingDetail } = useAppSelector((state) => state.search)
     const { data, isFetching } = useGetPersonByIdQuery(id!, {
         skip: !id,
     })
     const handleCloseDetail = () => {
         navigate(`../../?page=${currentPage}`)
     }
-    return isFetching && !data?.name ? (
+    useEffect(() => {
+        dispatch(changeFlagDetail(!!isFetching))
+    }, [isFetching])
+
+    return isLoadingDetail && !data?.name ? (
         <div className="load">
-            {isFetching ? 'Loading...' : 'Nothing was found for your request'}
+            {isLoadingDetail
+                ? 'Loading...'
+                : 'Nothing was found for your request'}
         </div>
     ) : (
         !!data && (
