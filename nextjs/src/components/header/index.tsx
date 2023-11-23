@@ -5,7 +5,7 @@ const Header = () => {
     <header>
       <h1 className="title">
         <Image
-          src="/assets/img/logonterpol.png"
+          src="/assets/logonterpol.png"
           alt="logo"
           height={275}
           width={183}

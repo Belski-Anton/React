@@ -12,7 +12,7 @@ const Footer = () => {
                rel="noopener noreferrer"
            >
              <Image
-              src="/assets/icon/link.png"
+              src="/assets/link.png"
               alt="link"
               height={16}
               width={16}
