@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images: {
+    domains: ["ws-public.interpol.int"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

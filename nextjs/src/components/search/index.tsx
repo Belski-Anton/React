@@ -1,3 +1,4 @@
+import './style.css'
 import Image from "next/image";
 import Dropdown from "../dropdown";
 const Search = () => {
@@ -14,7 +15,7 @@ const Search = () => {
         />
         <Image
           className="searchImg"
-          src="/assets/img/search.svg"
+          src="/assets/search.svg"
           alt="logo"
           height={19}
           width={20}

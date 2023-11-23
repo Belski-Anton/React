@@ -1,12 +1,15 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-import Search from './components/search'
-import Dropdown from './components/dropdown'
+import Main from "../components/main/index"
+import Search from "../components/search/index"
 
-export default function Home() {
+const MainPage = () => {
+
   return (
-   <>
-   <Search/>
-   </>
+    <div>
+      <Search />
+      <Main />
+    </div>
   )
 }
+
+export default MainPage
+

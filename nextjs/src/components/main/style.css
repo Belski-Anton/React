@@ -1,0 +1,89 @@
+.wrapperMain {
+   margin-top: 20px;
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   align-items: center;
+   gap: 30px;
+   color: #0053ff;
+}
+
+.card {
+   margin: 0 auto;
+   text-align: center;
+   min-height: 120px;
+   border: 1px solid #f5f5f5d9;
+   border-radius: 5px;
+   background-color: #f5f5f5;
+   vertical-align: middle;
+   padding: 10px;
+}
+
+.photo {
+   width: 100px;
+   height: 100px;
+   display: inline-block;
+   margin: 0 auto;
+}
+
+.wrapperNoFlag {
+   display: flex;
+   flex-direction: column;
+   gap: 0.5em;
+}
+
+.noFlag {
+   width: 32px;
+   height: 32px;
+   object-fit: contain;
+   align-self: center;
+}
+
+p {
+   margin: 0;
+   text-align: center;
+   color: rgb(75, 73, 73);
+   font-weight: 600;
+}
+
+.load {
+   text-align: center;
+   margin-top: 30px;
+   color: black;
+}
+
+.nationality {
+   display: flex;
+   flex-direction: column-reverse;
+   justify-content: center;
+   align-items: center;
+   gap: 0.5em;
+}
+
+.viewMore {
+   background-color: #536878;
+   display: block;
+   width: 100%;
+   cursor: pointer;
+   color: aliceblue;
+   padding-top: 5px;
+}
+
+.wrapperContent {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   gap: 30px;
+}
+
+.wrapperContent > .wrapperMain {
+   grid-template-columns: repeat(1, 1fr);
+   height: 600px;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   cursor: pointer;
+   background-color: #f5f5f5;
+}
+
+.wrapperContent > .wrapperMain > .card {
+   min-height: auto;
+}
