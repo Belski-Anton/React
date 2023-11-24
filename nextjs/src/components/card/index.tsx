@@ -1,18 +1,8 @@
 import Image from 'next/image'
-import { getNationalityName, renderFlag } from '../main'
 import Link from 'next/link'
-
-export interface IDataPerson {
-  forename: string
-  date_of_birth: string
-  entity_id: string
-  nationalities: string[]
-  _links: {
-    thumbnail?: {
-      href: string
-    } | null
-  }
-}
+import { renderFlag } from '../flag'
+import { getNationalityName } from '@/utils/getNationality'
+import { IDataPerson } from '../../interface/dataServer'
 
 interface CardsProps {
   item: IDataPerson

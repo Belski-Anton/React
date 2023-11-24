@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Special Elite', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Special Elite", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -33,9 +33,16 @@ h1 {
   margin-bottom: 0;
 }
 
-h2 {
-  margin: 0;
-  font-size: 20px;
+.loading,
+.error {
+  width: 100%;
+  margin-top: 80px;
+  color: #242424;
+  text-align: center;
+}
+
+.error.msg {
+  color: red;
 }
 
 input {

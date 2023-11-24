@@ -1,0 +1,25 @@
+.pagination {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   gap: 10px;
+   margin-top: 30px;
+}
+
+.numberPage {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 32px;
+   height: 32px;
+   border: 1px solid #c10303;
+   color: #c10303;
+   background-color: transparent;
+   border-radius: 3px;
+   cursor: pointer;
+}
+
+.activePage {
+   color: white;
+   background-color: #c10303;
+}

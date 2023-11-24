@@ -1,8 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["ws-public.interpol.int"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ws-public.interpol.int",
+      },
+    ],
   },
 };
 
-module.exports = nextConfig;
+module.exports = nextConfig
+
