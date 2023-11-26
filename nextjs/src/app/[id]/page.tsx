@@ -12,7 +12,7 @@ type Props = {
 export default function Detail({ params: { id } }: Props) {
   return (
     <div className='wrapperContent'>
-      <Cards />
+      <Cards isDetailPage={true} />
       <DetailCard id={id} />
     </div>
   )

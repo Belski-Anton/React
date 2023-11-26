@@ -11,8 +11,11 @@ import {
   changeTotalPage,
 } from "../../../store/dataForApi/dataForApiSlice";
 
-export default function Cards() {
+type Props = {
+  isDetailPage?: boolean;
+};
 
+export default function Cards({ isDetailPage = false }: Props) {
   const dispatch = useAppDispatch();
   const { isLoadingData, isLoadingDetail } = useAppSelector(
     (state) => state.load
@@ -41,12 +44,18 @@ export default function Cards() {
     }
   }, [data, isLoading, dispatch, resultPerPage]);
 
+  const closeSidebar = () => {
+    if (isDetailPage) {
+      window.location.href = "/";
+    }
+  };
+
   return (
     <>
       {!!(isLoadingData || isLoadingDetail) ? (
         <Loading />
       ) : !!(data && data?._embedded.notices.length) ? (
-        <div className="wrapperMain">
+        <div className="wrapperMain" onClick={closeSidebar}>
           {data._embedded.notices.map((item, idx) => (
             <Card key={`item-${item.entity_id}-${idx}`} item={item} />
           ))}
