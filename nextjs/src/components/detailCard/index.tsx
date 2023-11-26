@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { renderFlag } from '@/components/flag'
 import { getNationalityName } from '@/utils/getNationality'
 import { useGetPersonByIdQuery } from '../../../api/index'
-import { useAppDispatch, useAppSelector } from '../../../store/hooks'
+import { useAppDispatch } from '../../../store/hooks'
 import { changeFlagDetail } from '../../../store/loading/loadingSlice'
 
 type Props = {
@@ -14,7 +14,6 @@ type Props = {
 
 export default function DetailCard({ id }: Props) {
   const dispatch = useAppDispatch()
-  const { isLoadingData, isLoadingDetail } = useAppSelector((state) => state.load)
   const { data, isLoading } = useGetPersonByIdQuery(id)
 
   useEffect(() => {

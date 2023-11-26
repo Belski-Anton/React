@@ -33,7 +33,7 @@ const Card = ({ item }: CardsProps) => {
           <span className="wrapperNoFlag">
             Unknown nationality
             <Image className="noFlag"
-              alt=''
+              alt={item.forename}
               src='/assets/noflag.png'
               width={32}
               height={32} />
