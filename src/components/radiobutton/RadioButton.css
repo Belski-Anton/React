@@ -1,0 +1,15 @@
+p {
+    font-family: 'Poppins';
+    margin: 0;
+}
+
+span {
+    display: inline-block;
+}
+
+.radio_button {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 15px;
+}
