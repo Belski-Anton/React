@@ -13,6 +13,10 @@ const Forms = () => {
     const nameRef = useRef<HTMLInputElement | null>(null)
     const ageRef = useRef<HTMLInputElement | null>(null)
 
+    const handleChange = () => {
+        console.log(emailRef.current?.value)
+    }
+
     return (
         <div className="wrapper_form">
             <div className="form">
@@ -53,7 +57,7 @@ const Forms = () => {
                 <RadioButton />
                 <InputImg />
                 <CheckBox />
-                <Button />
+                <Button onClick={handleChange} />
             </div>
         </div>
     )

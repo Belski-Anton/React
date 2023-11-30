@@ -1,8 +1,13 @@
 import './Button.css'
-const Button = () => {
+
+interface ButtonProps {
+    onClick: () => void
+}
+
+const Button = ({ onClick }: ButtonProps) => {
     return (
         <div className="btn">
-            <button>Submit</button>
+            <button onClick={onClick}>Submit</button>
         </div>
     )
 }
