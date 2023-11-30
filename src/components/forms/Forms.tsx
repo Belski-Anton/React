@@ -1,26 +1,17 @@
 import './Forms.css'
-import { useState, ChangeEvent } from 'react'
+import { useRef } from 'react'
 import CheckBox from '../checkbox/CheckBox'
 import InputImg from '../inputimg/InputImg'
 import RadioButton from '../radiobutton/RadioButton'
 import Input from '../input/Input'
+import Button from '../button/Button'
 
 const Forms = () => {
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
-        confirmPassword: '',
-        name: '',
-        age: '',
-    })
-
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormData({
-            ...formData,
-            [name]: value,
-        })
-    }
+    const emailRef = useRef<HTMLInputElement | null>(null)
+    const passwordRef = useRef<HTMLInputElement | null>(null)
+    const confirmPasswordRef = useRef<HTMLInputElement | null>(null)
+    const nameRef = useRef<HTMLInputElement | null>(null)
+    const ageRef = useRef<HTMLInputElement | null>(null)
 
     return (
         <div className="wrapper_form">
@@ -29,44 +20,40 @@ const Forms = () => {
                 <h2>Enter your personal details</h2>
                 <form className="wrapper_input">
                     <Input
+                        ref={emailRef}
                         type="email"
                         name="email"
                         placeholder="Enter your email ..."
-                        value={formData.email}
-                        onChange={handleChange}
                     />
                     <Input
+                        ref={passwordRef}
                         type="password"
                         name="password"
                         placeholder="Enter your password..."
-                        value={formData.password}
-                        onChange={handleChange}
                     />
                     <Input
+                        ref={confirmPasswordRef}
                         type="password"
                         name="confirmPassword"
                         placeholder="Confirm the password..."
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
                     />
                     <Input
+                        ref={nameRef}
                         type="text"
                         name="name"
                         placeholder="Enter your name... "
-                        value={formData.name}
-                        onChange={handleChange}
                     />
                     <Input
+                        ref={ageRef}
                         type="text"
                         name="age"
                         placeholder="Enter your age... "
-                        value={formData.age}
-                        onChange={handleChange}
                     />
                 </form>
                 <RadioButton />
                 <InputImg />
                 <CheckBox />
+                <Button />
             </div>
         </div>
     )
