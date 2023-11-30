@@ -15,6 +15,8 @@ const Forms = () => {
     const confirmPasswordRef = useRef<HTMLInputElement | null>(null)
     const nameRef = useRef<HTMLInputElement | null>(null)
     const ageRef = useRef<HTMLInputElement | null>(null)
+    const maleRef = useRef<HTMLInputElement | null>(null)
+    const femaleRef = useRef<HTMLInputElement | null>(null)
     const dispatch = useDispatch<AppDispatch>()
 
     const handleChange = () => {
@@ -23,11 +25,17 @@ const Forms = () => {
         const confirmPasswordValue = confirmPasswordRef.current?.value || ''
         const nameValue = nameRef.current?.value || ''
         const ageValue = ageRef.current?.value || ''
+        const gender = maleRef.current?.checked
+            ? 'male'
+            : femaleRef.current?.checked
+            ? 'female'
+            : ''
         dispatch(formActions.addEmail(emailValue))
         dispatch(formActions.addPassword(passwordValue))
         dispatch(formActions.addConfirmPassword(confirmPasswordValue))
         dispatch(formActions.addName(nameValue))
         dispatch(formActions.addAge(ageValue))
+        dispatch(formActions.addGender(gender))
     }
 
     return (
@@ -67,7 +75,7 @@ const Forms = () => {
                         placeholder="Enter your age... "
                     />
                 </form>
-                <RadioButton />
+                <RadioButton refMale={maleRef} refFemale={femaleRef} />
                 <InputImg />
                 <CheckBox />
                 <Button onClick={handleChange} />
