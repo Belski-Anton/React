@@ -5,6 +5,9 @@ import InputImg from '../inputimg/InputImg'
 import RadioButton from '../radiobutton/RadioButton'
 import Input from '../input/Input'
 import Button from '../button/Button'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../store/srore'
+import { formActions } from '../../store/formSlice'
 
 const Forms = () => {
     const emailRef = useRef<HTMLInputElement | null>(null)
@@ -12,9 +15,19 @@ const Forms = () => {
     const confirmPasswordRef = useRef<HTMLInputElement | null>(null)
     const nameRef = useRef<HTMLInputElement | null>(null)
     const ageRef = useRef<HTMLInputElement | null>(null)
+    const dispatch = useDispatch<AppDispatch>()
 
     const handleChange = () => {
-        console.log(emailRef.current?.value)
+        const emailValue = emailRef.current?.value || ''
+        const passwordValue = passwordRef.current?.value || ''
+        const confirmPasswordValue = confirmPasswordRef.current?.value || ''
+        const nameValue = nameRef.current?.value || ''
+        const ageValue = ageRef.current?.value || ''
+        dispatch(formActions.addEmail(emailValue))
+        dispatch(formActions.addPassword(passwordValue))
+        dispatch(formActions.addConfirmPassword(confirmPasswordValue))
+        dispatch(formActions.addName(nameValue))
+        dispatch(formActions.addAge(ageValue))
     }
 
     return (
