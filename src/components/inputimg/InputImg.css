@@ -9,4 +9,10 @@ input[type='file'] {
     cursor: pointer;
     background: #1976d2;
     border-radius: 5px;
+    height: 30px;
+}
+
+.img_wrapper {
+    display: flex;
+    justify-content: space-between;
 }
