@@ -1,42 +1,34 @@
+import { IForm } from '../../store/formSlice'
 import './SaveFormTwo.css'
 import { useSelector } from 'react-redux'
 
 const SaveFormTwo = () => {
-    const email = useSelector(
-        (state: { user: { email: string } }) => state.user.email
-    )
-    const password = useSelector(
-        (state: { user: { password: string } }) => state.user.password
-    )
-    const confirmPassword = useSelector(
-        (state: { user: { confirmPassword: string } }) =>
-            state.user.confirmPassword
-    )
-    const name = useSelector(
-        (state: { user: { name: string } }) => state.user.name
-    )
-    const age = useSelector(
-        (state: { user: { age: string } }) => state.user.age
-    )
-    const gender = useSelector(
-        (state: { user: { gender: string } }) => state.user.gender
-    )
-    const image = useSelector(
-        (state: { user: { image: string } }) => state.user.image
+    const items = useSelector(
+        (state: { user: { items: IForm[] } }) => state.user.items
     )
 
     return (
-        <div className="form_two">
-            <div>Email: {email}</div>
-            <div>Password: {password}</div>
-            <div>Password: {confirmPassword}</div>
-            <div>Name: {name}</div>
-            <div>Age: {age}</div>
-            <div>Gender: {gender}</div>
-            <div>
-                Img: <img src={image} alt="" />
-            </div>
-        </div>
+        <>
+            {items.map((el, idx) => (
+                <div
+                    className={`form_two ${
+                        idx === items.length - 1 ? 'last' : ''
+                    }`}
+                    key={`${idx}`}
+                >
+                    <div>Email: {el.email}</div>
+                    <div>Password: {el.password}</div>
+                    <div>Password: {el.confirmPassword}</div>
+                    <div>Name: {el.name}</div>
+                    <div>Age: {el.age}</div>
+                    <div>Gender: {el.gender}</div>
+                    <div>
+                        Img: <img className="img" src={el.image} alt="" />
+                    </div>
+                    <div>Country: {el.country}</div>
+                </div>
+            ))}
+        </>
     )
 }
 

@@ -5,13 +5,18 @@ interface IImageProps {
     imgRef: React.MutableRefObject<HTMLImageElement | null>
     bodyInputRef: React.MutableRefObject<HTMLInputElement | null>
 }
-
+const MAX_IMAGE_SIZE = 5 * 1024 * 1024
 const InputImg = ({ imgRef, bodyInputRef }: IImageProps) => {
     const handleCnange = () => {
         const inputElement = bodyInputRef?.current
         if (inputElement && inputElement.files && inputElement.files[0]) {
-            const selectedFile = inputElement.files[0]
-            convertBase64(selectedFile)
+            if (inputElement.files[0].size > MAX_IMAGE_SIZE) {
+                alert('Файл слишком большой. Максимальный размер 5 МБ.')
+                return
+            } else {
+                const selectedFile = inputElement.files[0]
+                convertBase64(selectedFile)
+            }
         }
     }
 
@@ -30,7 +35,7 @@ const InputImg = ({ imgRef, bodyInputRef }: IImageProps) => {
     return (
         <div className="img_wrapper">
             <label htmlFor="file-upload" className="custom-file-upload">
-                Загрузить изображение
+                Downland img
             </label>
             <input
                 onChange={handleCnange}
@@ -39,7 +44,7 @@ const InputImg = ({ imgRef, bodyInputRef }: IImageProps) => {
                 type="file"
                 accept="image/png, image/jpeg"
             />
-            <img ref={imgRef} alt="" />
+            <img className="img" ref={imgRef} alt="" />
         </div>
     )
 }

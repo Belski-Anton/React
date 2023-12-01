@@ -1,7 +1,11 @@
-const CheckBox = () => {
+interface IProps {
+    agreeRef: React.MutableRefObject<HTMLInputElement | null>
+}
+
+const CheckBox = ({ agreeRef }: IProps) => {
     return (
         <div>
-            <input type="checkbox" id="scales" name="scales" />
+            <input ref={agreeRef} type="checkbox" id="scales" name="scales" />
             <label htmlFor="scales">I agree</label>
         </div>
     )

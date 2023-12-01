@@ -30,13 +30,12 @@ input:focus {
 .autocomplete-items {
     position: absolute;
     border: 1px solid #d4d4d4;
-    border-bottom: none;
-    border-top: none;
+    border-radius: 5px;
     z-index: 99;
     top: 100%;
     left: 0;
     right: 0;
-    height: 180px;
+    max-height: 180px;
     overflow-y: scroll;
     width: 204px;
 }

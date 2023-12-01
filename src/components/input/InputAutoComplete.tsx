@@ -10,9 +10,10 @@ interface InputProps {
 }
 
 const InputAutoComplete = ({ countryRef, ...props }: InputProps) => {
-    const country = useSelector(
+    const countries = useSelector(
         (state: { country: { countries: string[] } }) => state.country.countries
     )
+    const [suggestions, setSuggestions] = useState<string[]>(countries)
 
     const [isAutocompleteVisible, setIsAutocompleteVisible] = useState(false)
 
@@ -41,20 +42,38 @@ const InputAutoComplete = ({ countryRef, ...props }: InputProps) => {
         }
     }
 
+    const filteredCountries = (searchText: string) => {
+        setSuggestions(
+            countries.filter(
+                (el) =>
+                    el.toLowerCase().indexOf(searchText.toLowerCase()) !== -1
+            )
+        )
+    }
+
     return (
         <div className="autocomplete" onBlur={handleContainerBlur} tabIndex={0}>
-            <input ref={countryRef} {...props} onFocus={handleInputFocus} />
+            <input
+                ref={countryRef}
+                {...props}
+                onFocus={handleInputFocus}
+                onChange={(e) => filteredCountries(e.target.value)}
+            />
             {isAutocompleteVisible && (
                 <div className="autocomplete-items">
-                    {country.map((suggestion: string, index: number) => (
-                        <div
-                            onClick={(e) => onClickCountry(e, suggestion)}
-                            key={index}
-                            className="autocomplete-item"
-                        >
-                            {suggestion}
-                        </div>
-                    ))}
+                    {suggestions.length ? (
+                        suggestions.map((suggestion: string, index: number) => (
+                            <div
+                                onClick={(e) => onClickCountry(e, suggestion)}
+                                key={index}
+                                className="autocomplete-item"
+                            >
+                                {suggestion}
+                            </div>
+                        ))
+                    ) : (
+                        <div className="autocomplete-item">Not result</div>
+                    )}
                 </div>
             )}
         </div>

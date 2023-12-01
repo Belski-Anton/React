@@ -21,6 +21,7 @@ const Forms = () => {
     const bodyInputRef = useRef<HTMLInputElement | null>(null)
     const imgRef = useRef<HTMLImageElement | null>(null)
     const countryRef = useRef<HTMLInputElement | null>(null)
+    const agreeRef = useRef<HTMLInputElement | null>(null)
     const dispatch = useDispatch<AppDispatch>()
 
     const handleChange = () => {
@@ -35,14 +36,21 @@ const Forms = () => {
             ? 'female'
             : ''
         const imgBased64 = imgRef.current?.src || ''
-        dispatch(formActions.addEmail(emailValue))
-        dispatch(formActions.addPassword(passwordValue))
-        dispatch(formActions.addConfirmPassword(confirmPasswordValue))
-        dispatch(formActions.addName(nameValue))
-        dispatch(formActions.addAge(ageValue))
-        dispatch(formActions.addGender(gender))
-        dispatch(formActions.addGender(gender))
-        dispatch(formActions.addImage(imgBased64))
+        const countryValue = countryRef.current?.value || ''
+        const isAgree = agreeRef.current?.checked || false
+        dispatch(
+            formActions.addForm({
+                email: emailValue,
+                password: passwordValue,
+                confirmPassword: confirmPasswordValue,
+                name: nameValue,
+                age: ageValue,
+                gender,
+                image: imgBased64,
+                country: countryValue,
+                isAgree,
+            })
+        )
     }
 
     return (
@@ -90,7 +98,7 @@ const Forms = () => {
                 </form>
                 <RadioButton refMale={maleRef} refFemale={femaleRef} />
                 <InputImg imgRef={imgRef} bodyInputRef={bodyInputRef} />
-                <CheckBox />
+                <CheckBox agreeRef={agreeRef} />
                 <Button onClick={handleChange} />
             </div>
         </div>
