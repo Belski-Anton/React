@@ -17,6 +17,8 @@ const Forms = () => {
     const ageRef = useRef<HTMLInputElement | null>(null)
     const maleRef = useRef<HTMLInputElement | null>(null)
     const femaleRef = useRef<HTMLInputElement | null>(null)
+    const bodyInputRef = useRef<HTMLInputElement | null>(null)
+    const imgRef = useRef<HTMLImageElement | null>(null)
     const dispatch = useDispatch<AppDispatch>()
 
     const handleChange = () => {
@@ -30,12 +32,15 @@ const Forms = () => {
             : femaleRef.current?.checked
             ? 'female'
             : ''
+        const imgBased64 = imgRef.current?.src || ''
         dispatch(formActions.addEmail(emailValue))
         dispatch(formActions.addPassword(passwordValue))
         dispatch(formActions.addConfirmPassword(confirmPasswordValue))
         dispatch(formActions.addName(nameValue))
         dispatch(formActions.addAge(ageValue))
         dispatch(formActions.addGender(gender))
+        dispatch(formActions.addGender(gender))
+        dispatch(formActions.addImage(imgBased64))
     }
 
     return (
@@ -76,7 +81,7 @@ const Forms = () => {
                     />
                 </form>
                 <RadioButton refMale={maleRef} refFemale={femaleRef} />
-                <InputImg />
+                <InputImg imgRef={imgRef} bodyInputRef={bodyInputRef} />
                 <CheckBox />
                 <Button onClick={handleChange} />
             </div>

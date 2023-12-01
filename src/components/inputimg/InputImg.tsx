@@ -1,12 +1,14 @@
-import { useRef } from 'react'
+// import { forwardRef } from 'react'
 import './InputImg.css'
 
-const InputImg = () => {
-    const bodyInputRef = useRef<HTMLInputElement | null>(null)
-    const imgRef = useRef<HTMLImageElement | null>(null)
+interface IImageProps {
+    imgRef: React.MutableRefObject<HTMLImageElement | null>
+    bodyInputRef: React.MutableRefObject<HTMLInputElement | null>
+}
 
+const InputImg = ({ imgRef, bodyInputRef }: IImageProps) => {
     const handleCnange = () => {
-        const inputElement = bodyInputRef.current
+        const inputElement = bodyInputRef?.current
         if (inputElement && inputElement.files && inputElement.files[0]) {
             const selectedFile = inputElement.files[0]
             convertBase64(selectedFile)
@@ -17,8 +19,9 @@ const InputImg = () => {
         const reader = new FileReader()
         reader.onload = (e) => {
             const base64Data = e.target?.result as string
-            if (imgRef.current) {
+            if (imgRef && imgRef.current) {
                 imgRef.current.src = base64Data
+                console.log(base64Data) // Вывод данных base64 в консоль
             }
         }
         reader.readAsDataURL(file)
@@ -27,7 +30,7 @@ const InputImg = () => {
     return (
         <div className="img_wrapper">
             <label htmlFor="file-upload" className="custom-file-upload">
-                Загрузить
+                Загрузить изображение
             </label>
             <input
                 onChange={handleCnange}

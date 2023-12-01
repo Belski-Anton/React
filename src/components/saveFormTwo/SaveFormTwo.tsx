@@ -21,6 +21,9 @@ const SaveFormTwo = () => {
     const gender = useSelector(
         (state: { user: { gender: string } }) => state.user.gender
     )
+    const image = useSelector(
+        (state: { user: { image: string } }) => state.user.image
+    )
     return (
         <div className="form_two">
             <div>Email: {email}</div>
@@ -29,6 +32,9 @@ const SaveFormTwo = () => {
             <div>Name: {name}</div>
             <div>Age: {age}</div>
             <div>Gender: {gender}</div>
+            <div>
+                Img: <img src={image} alt="" />
+            </div>
         </div>
     )
 }

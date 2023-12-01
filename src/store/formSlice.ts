@@ -7,6 +7,7 @@ export interface IForm {
     name: string
     age: string
     gender: string
+    image: string | null
 }
 
 const initialState: IForm = {
@@ -16,6 +17,7 @@ const initialState: IForm = {
     name: '',
     age: '',
     gender: '',
+    image: null,
 }
 
 export const formSlice = createSlice({
@@ -40,6 +42,9 @@ export const formSlice = createSlice({
         },
         addGender: (state, action: PayloadAction<string>) => {
             state.gender = action.payload
+        },
+        addImage: (state, action: PayloadAction<string | null>) => {
+            state.image = action.payload
         },
     },
 })
