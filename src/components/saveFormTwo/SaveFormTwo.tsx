@@ -24,6 +24,7 @@ const SaveFormTwo = () => {
     const image = useSelector(
         (state: { user: { image: string } }) => state.user.image
     )
+
     return (
         <div className="form_two">
             <div>Email: {email}</div>

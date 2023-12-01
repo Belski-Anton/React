@@ -8,6 +8,7 @@ import Button from '../button/Button'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../store/srore'
 import { formActions } from '../../store/formSlice'
+import InputAutoComplete from '../input/InputAutoComplete'
 
 const Forms = () => {
     const emailRef = useRef<HTMLInputElement | null>(null)
@@ -19,6 +20,7 @@ const Forms = () => {
     const femaleRef = useRef<HTMLInputElement | null>(null)
     const bodyInputRef = useRef<HTMLInputElement | null>(null)
     const imgRef = useRef<HTMLImageElement | null>(null)
+    const countryRef = useRef<HTMLInputElement | null>(null)
     const dispatch = useDispatch<AppDispatch>()
 
     const handleChange = () => {
@@ -78,6 +80,12 @@ const Forms = () => {
                         type="text"
                         name="age"
                         placeholder="Enter your age... "
+                    />
+                    <InputAutoComplete
+                        countryRef={countryRef}
+                        type="text"
+                        name="country"
+                        placeholder="Country"
                     />
                 </form>
                 <RadioButton refMale={maleRef} refFemale={femaleRef} />

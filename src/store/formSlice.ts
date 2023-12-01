@@ -19,8 +19,7 @@ const initialState: IForm = {
     gender: '',
     image: null,
 }
-
-export const formSlice = createSlice({
+const formSlice = createSlice({
     name: 'user',
     initialState,
 
