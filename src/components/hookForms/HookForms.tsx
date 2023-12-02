@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { IForm, formActions } from '../../store/formSlice'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
@@ -7,15 +7,52 @@ import '../inputimg/InputImg.css'
 import '../radiobutton/RadioButton.css'
 
 const HookForms = () => {
-    const { register, handleSubmit } = useForm<IForm>({
+    const { register, handleSubmit, setValue } = useForm<IForm>({
         defaultValues: {},
     })
     const dispatch = useDispatch()
+
     const onSubmit: SubmitHandler<IForm> = (data: IForm) => {
         const formData = { ...data, image: imageBase64 }
         dispatch(formActions.addForm(formData))
     }
+
     const [imageBase64, setImageBase64] = useState('')
+    const countries = useSelector(
+        (state: { country: { countries: string[] } }) => state.country.countries
+    )
+    const [suggestions, setSuggestions] = useState<string[]>(countries)
+
+    const [isAutocompleteVisible, setIsAutocompleteVisible] = useState(false)
+
+    const handleInputFocus = () => {
+        setIsAutocompleteVisible(true)
+    }
+    const handleContainerBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+        if (
+            e.relatedTarget &&
+            e.currentTarget.contains(e.relatedTarget as Node)
+        ) {
+            return
+        }
+        setIsAutocompleteVisible(false)
+    }
+    const onClickCountry = (
+        e: React.MouseEvent<HTMLDivElement>,
+        value: string
+    ) => {
+        e.stopPropagation()
+        setValue('country', value, { shouldValidate: true })
+        setIsAutocompleteVisible(false)
+    }
+
+    const filteredCountries = (searchText: string) => {
+        setSuggestions(
+            countries.filter((el) =>
+                el.toLowerCase().includes(searchText.toLowerCase())
+            )
+        )
+    }
 
     return (
         <div className="wrapper_form">
@@ -57,12 +94,51 @@ const HookForms = () => {
                         placeholder="Enter your age... "
                         className="input"
                     />
-                    <input
-                        type="text"
-                        {...register('country')}
-                        placeholder="Country"
-                        className="input"
-                    />
+
+                    <div
+                        className="autocomplete"
+                        onBlur={handleContainerBlur}
+                        tabIndex={0}
+                    >
+                        <input
+                            placeholder="Country"
+                            {...register('country')}
+                            onFocus={handleInputFocus}
+                            onChange={(e) => {
+                                filteredCountries(e.target.value)
+                                setValue('country', e.target.value, {
+                                    shouldValidate: true,
+                                })
+                            }}
+                        />
+                        {isAutocompleteVisible && (
+                            <div className="autocomplete-items">
+                                {suggestions.length ? (
+                                    suggestions.map(
+                                        (suggestion: string, index: number) => (
+                                            <div
+                                                onClick={(e) =>
+                                                    onClickCountry(
+                                                        e,
+                                                        suggestion
+                                                    )
+                                                }
+                                                key={index}
+                                                className="autocomplete-item"
+                                            >
+                                                {suggestion}
+                                            </div>
+                                        )
+                                    )
+                                ) : (
+                                    <div className="autocomplete-item">
+                                        Not result
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
                     <div className="radio_button">
                         <input
                             type="radio"
@@ -114,6 +190,7 @@ const HookForms = () => {
                         />
                         <img src={imageBase64} className="img" alt="" />
                     </div>
+
                     <div>
                         <input
                             type="checkbox"
