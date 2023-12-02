@@ -20,6 +20,7 @@ input:hover {
 
 input:focus {
     border: 2px solid #1976d2;
+    padding: 15.5px 13px;
 }
 
 .autocomplete {

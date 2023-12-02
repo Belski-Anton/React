@@ -1,12 +1,10 @@
 import './MainPages.css'
-import SaveFormTwo from '../../components/saveFormTwo/SaveFormTwo'
-import SaveFormOne from '../../components/saveFormOne/SaveFormOne'
+import Cards from '../../components/cards/Cards'
 
 const MainPages = () => {
     return (
         <div className="main_page">
-            <SaveFormOne />
-            <SaveFormTwo />
+            <Cards />
         </div>
     )
 }

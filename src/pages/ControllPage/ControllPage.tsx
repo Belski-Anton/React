@@ -1,5 +1,11 @@
+import HookForms from '../../components/hookForms/HookForms'
+
 const ControllPage = () => {
-    return <div>forms 1</div>
+    return (
+        <>
+            <HookForms />
+        </>
+    )
 }
 
 export default ControllPage

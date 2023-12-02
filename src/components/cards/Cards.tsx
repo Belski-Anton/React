@@ -1,8 +1,8 @@
 import { IForm } from '../../store/formSlice'
-import './SaveFormTwo.css'
+import './Cards.css'
 import { useSelector } from 'react-redux'
 
-const SaveFormTwo = () => {
+const Cards = () => {
     const items = useSelector(
         (state: { user: { items: IForm[] } }) => state.user.items
     )
@@ -32,4 +32,4 @@ const SaveFormTwo = () => {
     )
 }
 
-export default SaveFormTwo
+export default Cards
