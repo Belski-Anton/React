@@ -1,4 +1,3 @@
-// import { forwardRef } from 'react'
 import './InputImg.css'
 
 interface IImageProps {
@@ -26,7 +25,6 @@ const InputImg = ({ imgRef, bodyInputRef }: IImageProps) => {
             const base64Data = e.target?.result as string
             if (imgRef && imgRef.current) {
                 imgRef.current.src = base64Data
-                console.log(base64Data) // Вывод данных base64 в консоль
             }
         }
         reader.readAsDataURL(file)
