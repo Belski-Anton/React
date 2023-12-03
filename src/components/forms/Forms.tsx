@@ -29,7 +29,7 @@ const Forms = () => {
         const passwordValue = passwordRef.current?.value || ''
         const confirmPasswordValue = confirmPasswordRef.current?.value || ''
         const nameValue = nameRef.current?.value || ''
-        const ageValue = ageRef.current?.value || ''
+        const ageValue = ageRef.current ? parseInt(ageRef.current.value, 10) : 0
         const gender = maleRef.current?.checked
             ? 'male'
             : femaleRef.current?.checked
