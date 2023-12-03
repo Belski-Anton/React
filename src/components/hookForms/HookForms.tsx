@@ -2,12 +2,49 @@ import { useDispatch, useSelector } from 'react-redux'
 import { IForm, formActions } from '../../store/formSlice'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 import './HookForms.css'
 import '../inputimg/InputImg.css'
 import '../radiobutton/RadioButton.css'
 
+const schema = yup
+    .object({
+        email: yup
+            .string()
+            .email('Invalid email format')
+            .required('Email is required'),
+        password: yup
+            .string()
+            .min(6, 'Password must be at least 6 characters long')
+            .required('Password is required'),
+        confirmPassword: yup
+            .string()
+            .oneOf([yup.ref('password')], 'Passwords must match')
+            .required('Confirm password is required'),
+        name: yup.string().required('Name is required'),
+        age: yup
+            .number()
+            .positive('Age must be a positive number')
+            .integer('Age must be an integer')
+            .required('Age is required'),
+        gender: yup.string().required('Gender is required'),
+        image: yup.string().required('Image is required'),
+        country: yup.string().required('Country is required'),
+        isAgree: yup
+            .boolean()
+            .oneOf([true], 'You must agree to the terms and conditions'),
+    })
+    .required()
+
 const HookForms = () => {
-    const { register, handleSubmit, setValue } = useForm<IForm>({
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+    } = useForm<IForm>({
+        resolver: yupResolver(schema),
         defaultValues: {},
     })
     const dispatch = useDispatch()
@@ -94,7 +131,7 @@ const HookForms = () => {
                         placeholder="Enter your age... "
                         className="input"
                     />
-
+                    <p>{errors.age?.message}</p>
                     <div
                         className="autocomplete"
                         onBlur={handleContainerBlur}

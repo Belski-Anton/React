@@ -5,11 +5,11 @@ export interface IForm {
     password: string
     confirmPassword: string
     name: string
-    age: string
+    age: number
     gender: string
     image: string
     country: string
-    isAgree: boolean
+    isAgree?: boolean
 }
 
 export interface IFormItems {
