@@ -12,6 +12,7 @@ module.exports = {
         'prettier/prettier': 'error',
         'react/react-in-jsx-scope': 'off',
         '@typescript-eslint/no-explicit-any': 'error',
+        'react/display-name': 'off',
     },
     parser: '@typescript-eslint/parser',
     parserOptions: {

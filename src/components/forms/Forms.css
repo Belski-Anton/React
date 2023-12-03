@@ -1,0 +1,25 @@
+.wrapper_form {
+    display: flex;
+    height: 100%;
+    position: relative;
+}
+
+.form {
+    font-family: 'Poppins';
+    max-width: 640px;
+    margin: auto;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 10px #a1a0a0;
+    width: 100%;
+    margin-top: 30px;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+.form_position {
+    position: relative;
+}
