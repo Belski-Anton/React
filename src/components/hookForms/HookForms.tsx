@@ -17,8 +17,12 @@ const schema = yup
             .required('Email is required'),
         password: yup
             .string()
-            .min(6, 'Password must be at least 6 characters long')
-            .required('Password is required'),
+            .min(4)
+            .required('Password is required')
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+                'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character'
+            ),
         confirmPassword: yup
             .string()
             .oneOf([yup.ref('password')], 'Passwords must match')
