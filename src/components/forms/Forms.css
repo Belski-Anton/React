@@ -1,6 +1,7 @@
 .wrapper_form {
     display: flex;
     height: 100%;
+    position: relative;
 }
 
 .form {
@@ -17,4 +18,8 @@
 h1,
 h2 {
     text-align: center;
+}
+
+.form_position {
+    position: relative;
 }
